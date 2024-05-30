@@ -7,7 +7,8 @@ from lxml import etree
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class TierValidation(models.AbstractModel):
     _name = "tier.validation"
@@ -213,6 +214,7 @@ class TierValidation(models.AbstractModel):
         exceptions = self._get_under_validation_exceptions()
         for val in vals:
             if val not in exceptions:
+                _logger.info("Campo modificado: %s" % val)
                 return False
         return True
 
